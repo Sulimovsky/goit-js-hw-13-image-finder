@@ -8,13 +8,19 @@ export default class Pnotify {
   getInfo(text) {
     info({
       text: text,
-      delay: 1000,
+      delay: 500,
     });
   }
   getSuccess(text) {
     success({
       text: text,
-      delay: 1000,
+      delay: 500,
+    });
+  }
+  getNotice(text) {
+    notice({
+      text: text,
+      delay: 500,
     });
   }
 }

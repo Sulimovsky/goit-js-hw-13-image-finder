@@ -13,7 +13,8 @@ export default class apiService {
       .then(data => {
         this.incrementPage();
         return data.hits;
-      });
+      })
+      .catch(err => console.log(err))
   }
   incrementPage() {
     this.page += 1;
