@@ -1,0 +1,26 @@
+{{#each this}}
+<li class="gallery__item">
+    <div class="gallery__box">
+        <img class="gallery__img" src="{{webformatURL}}" alt="{{tags}}" />
+    </div>
+          
+    <ul class="stats">
+        <li class="stats__item">
+            <span class="material-icons">favorite_border</span>
+            <span class="stats__quantity">{{likes}}</span>
+        </li>
+        <li class="stats__item">
+            <span class="material-icons">visibility</span>
+            <span class="stats__quantity">{{views}}</span>
+        </li>
+        <li class="stats__item">
+            <span class="material-icons">comment</span>
+            <span class="stats__quantity">{{comments}}</span>
+        </li>
+        <li class="stats__item">
+            <span class="material-icons">cloud_download</span>
+            <span class="stats__quantity">{{downloads}}</span>
+        </li>
+    </ul>
+</li>
+{{/each}}
