@@ -5,4 +5,5 @@ export default {
     btnSearch: document.querySelector('.section__search-btn'),
     btnLoad: document.querySelector('.btn-load'),
     body: document.getElementById('body'),
+    section: document.querySelector('.section'),
 }

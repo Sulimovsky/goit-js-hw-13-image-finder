@@ -4,8 +4,12 @@ import appendMarkup from '../templates/markup.hbs';
 
 
 refs.form.addEventListener('submit', onSearchImages);
-refs.btnLoad.addEventListener('click', onClickLoad);
+// refs.btnLoad.addEventListener('click', onClickLoad); кнопка лоадер
 refs.btnLoad.classList.add('visually-hidden');
+
+const targetEl = document.querySelector('.centered');
+const observer = new IntersectionObserver(infiniteScroll, { threshold: 1 });
+observer.observe(targetEl);
 
 let page = 1;
 let search;
@@ -19,32 +23,46 @@ function onSearchImages(e) {
     .then(img => {
         console.log(img);
         refs.gallery.insertAdjacentHTML('beforeend', appendMarkup(img.data.hits));
-        refs.btnLoad.classList.remove('visually-hidden');
+
+        // refs.btnLoad.classList.remove('visually-hidden'); кнопка лоадер
     })
     .catch(console.log);
 
     refs.gallery.innerHTML = '';
 };
 
-function onClickLoad() {
+function infiniteScroll(entries) {
     page += 1;
-    refs.btnLoad.classList.add('btn-load--spinner');
-    refs.btnLoad.disabled = true;
-
-    getImages(search, page)
+    console.log(page);
+    console.log(entries);
+    getImages(search, page) 
     .then(img => {
         refs.gallery.insertAdjacentHTML('beforeend', appendMarkup(img.data.hits));
-
-        refs.btnLoad.classList.remove('btn-load--spinner');
-        refs.btnLoad.disabled = false;
-        
-        refs.body.scrollIntoView({
-            behavior: 'smooth',
-            block: 'end',
-        });
     })
     .catch(console.log);
 }
+
+
+// кнопка лоадер
+// function onClickLoad() {
+//     page += 1;
+//     refs.btnLoad.classList.add('btn-load--spinner');
+//     refs.btnLoad.disabled = true;
+
+//     getImages(search, page)
+//     .then(img => {
+//         refs.gallery.insertAdjacentHTML('beforeend', appendMarkup(img.data.hits));
+
+//         refs.btnLoad.classList.remove('btn-load--spinner');
+//         refs.btnLoad.disabled = false;
+        
+//         refs.body.scrollIntoView({
+//             behavior: 'smooth',
+//             block: 'end',
+//         });
+//     })
+//     .catch(console.log);
+// }
 
 
 
