@@ -6,4 +6,5 @@ export default {
     btnLoad: document.querySelector('.btn-load'),
     body: document.getElementById('body'),
     section: document.querySelector('.section'),
+    target: document.querySelector('.centered'),
 }

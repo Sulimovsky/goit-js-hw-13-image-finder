@@ -1,15 +1,16 @@
 import { getImages } from './apiService';
 import refs from './refs';
 import appendMarkup from '../templates/markup.hbs';
+import onError from './onError';
 
 
 refs.form.addEventListener('submit', onSearchImages);
-// refs.btnLoad.addEventListener('click', onClickLoad); кнопка лоадер
 refs.btnLoad.classList.add('visually-hidden');
 
-const targetEl = document.querySelector('.centered');
-const observer = new IntersectionObserver(infiniteScroll, { threshold: 1 });
-observer.observe(targetEl);
+//refs.btnLoad.addEventListener('click', onClickLoad); //кнопка лоадер
+
+const observer = new IntersectionObserver(infiniteScroll, { threshold: 0.1 });
+observer.observe(refs.target);
 
 let page = 1;
 let search;
@@ -19,27 +20,43 @@ function onSearchImages(e) {
     search = refs.input.value;
     page = 1;
 
+    if (search === '') {
+        onError();
+        return;
+    }
+    if (search.length <= 1) {
+        onError();
+        return;
+    }
+
     getImages(search, page)
     .then(img => {
-        console.log(img);
+        if (img.data.hits.length <= 1) {
+            onError();
+            refs.target.classList.remove('btn-load--spinner');
+            return;
+        }
         refs.gallery.insertAdjacentHTML('beforeend', appendMarkup(img.data.hits));
+        refs.target.classList.add('btn-load--spinner');
 
-        // refs.btnLoad.classList.remove('visually-hidden'); кнопка лоадер
+        //refs.btnLoad.classList.remove('visually-hidden'); //кнопка лоадер
     })
     .catch(console.log);
 
     refs.gallery.innerHTML = '';
 };
 
-function infiniteScroll(entries) {
+
+function infiniteScroll() {
     page += 1;
-    console.log(page);
-    console.log(entries);
     getImages(search, page) 
     .then(img => {
         refs.gallery.insertAdjacentHTML('beforeend', appendMarkup(img.data.hits));
     })
-    .catch(console.log);
+    .catch((err) => {
+        console.log(err);
+        refs.target.classList.remove('btn-load--spinner');
+    });
 }
 
 
@@ -63,33 +80,3 @@ function infiniteScroll(entries) {
 //     })
 //     .catch(console.log);
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// webformatURL - ссылка на маленькое изображение для списка карточек
-// largeImageURL - ссылка на большое изображение (смотри пункт 'дополнительно')
-// likes - количество лайков
-// views - количество просмотров
-// comments - количество комментариев
-// downloads - количество загрузок
-
-
-
-
-
-
-
-

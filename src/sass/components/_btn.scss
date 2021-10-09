@@ -25,7 +25,8 @@
 
     &::before {
         position: absolute;
-        left: 10%;
+        left: 50%; //scroll
+        // left: 10%;
         content: '';
         display: inline-block;
         width: 25px;
