@@ -7,4 +7,5 @@ export default {
     body: document.getElementById('body'),
     section: document.querySelector('.section'),
     target: document.querySelector('.centered'),
+    btnUp: document.querySelector('.btn-up'),
 }

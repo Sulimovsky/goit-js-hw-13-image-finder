@@ -46,7 +46,6 @@ function onSearchImages(e) {
     refs.gallery.innerHTML = '';
 };
 
-
 function infiniteScroll() {
     page += 1;
     getImages(search, page) 
