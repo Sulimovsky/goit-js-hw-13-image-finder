@@ -31,6 +31,7 @@ function onSearchImages(e) {
     }
     getImages(search, page)
     .then(img => {
+        console.log(img);
         if (img.data.hits.length <= 1) {
             onError();
             refs.target.classList.remove('btn-load--spinner');
@@ -52,6 +53,10 @@ function infiniteScroll() {
 
     getImages(search, page) 
     .then(img => {
+        if (img.data.hits.length === 0) {
+            refs.target.classList.remove('btn-load--spinner');
+            return;
+        }
         refs.gallery.insertAdjacentHTML('beforeend', appendMarkup(img.data.hits));
     })
     .catch((err) => {
@@ -61,7 +66,6 @@ function infiniteScroll() {
 }
 
 export default infiniteScroll;
-
 
 
 

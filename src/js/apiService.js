@@ -6,8 +6,8 @@
 // 5) Сделать спиннер +
 // 6) Бесконечний скрол +
 // 7) Нотифай +
-// 8) Galerry basic light box
-// 9) upp btn
+// 8) Galerry basic light box +
+// 9) upp btn +
 
 import axios from 'axios';
 
@@ -21,3 +21,12 @@ export async function getImages(search, page) {
         return error;
     }
 };
+
+export async function getIdApi(idNum) {
+    try {
+        const response = await axios.get(`${BASE_URL}&id=${idNum}`);
+        return response;
+    } catch(err) {
+        return err;
+    }
+}
