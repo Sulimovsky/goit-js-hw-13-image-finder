@@ -12,6 +12,7 @@ refs.btnLoad.classList.add('visually-hidden');
 const observer = new IntersectionObserver(infiniteScroll, { threshold: 0.1 });
 observer.observe(refs.target);
 
+
 let page = 1;
 let search;
 
@@ -28,7 +29,6 @@ function onSearchImages(e) {
         onError();
         return;
     }
-
     getImages(search, page)
     .then(img => {
         if (img.data.hits.length <= 1) {
@@ -46,8 +46,10 @@ function onSearchImages(e) {
     refs.gallery.innerHTML = '';
 };
 
+
 function infiniteScroll() {
     page += 1;
+
     getImages(search, page) 
     .then(img => {
         refs.gallery.insertAdjacentHTML('beforeend', appendMarkup(img.data.hits));
@@ -57,6 +59,13 @@ function infiniteScroll() {
         refs.target.classList.remove('btn-load--spinner');
     });
 }
+
+export default infiniteScroll;
+
+
+
+
+
 
 
 // кнопка лоадер

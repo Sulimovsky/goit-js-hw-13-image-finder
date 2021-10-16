@@ -12,7 +12,6 @@ function heightScroll() {
 }
 
 function scrollUp() {
-    console.log('asdad');
     const element = document.getElementById('target-up');
     element.scrollIntoView({
         behavior: 'smooth',
